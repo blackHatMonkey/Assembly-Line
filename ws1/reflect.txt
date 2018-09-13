@@ -1,0 +1,26 @@
+Name: Brian Smith
+Seneca Student ID: 137105177
+Seneca email: bsmith55@myseneca.ca
+Date of completion: 8/9/2018
+
+I confirm that the content of this file is created by me,
+with the exception of the parts provided to me by my professor.
+
+In this workshop I learned how to access another variable from
+another cpp file. Although I think this is rather dangrous I'm
+sure there are cases where it is uselful.
+
+Another feature that I learned is about static variables where
+their lifetime is the lifetime of the program. Since these static
+variables have internal linkage they are uselful within a unit.
+
+I also learned how to handle the command line arguments provided by
+the user. However I believe more practice is required for more
+complicated scenarios.
+
+NOTE:
+The instructions of the workshop was not quite clear. This was especially
+noticable about the STORED variables and MAX. In the future perhaps
+diagrams and images could be provided to assist with understanding the
+concepts. Also the output should have more than one case since it
+is hard to test with only one case.
