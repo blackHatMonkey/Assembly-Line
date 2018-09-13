@@ -21,10 +21,11 @@ class Text {
         Text& operator=(const Text& other);
         Text(Text&& other);
         Text& operator=(Text&& other) noexcept;
+        ~Text(){delete [] collection;};
         size_t size() const { return capacity > 0 ? capacity + 1 : 0; };
 
        private:
-        std::unique_ptr<std::string[]> collection;
+        std::string* collection = nullptr;
         size_t capacity{0};
 };
 

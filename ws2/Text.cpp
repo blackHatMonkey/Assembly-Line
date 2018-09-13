@@ -8,7 +8,6 @@
 
 #include <fstream>
 #include <iostream>
-#include <iterator>
 #include <memory>
 #include <sstream>
 #include <string>
@@ -30,7 +29,7 @@ Text::Text(const std::string& file_name) {
                         capacity++;
                 }
 
-                collection = std::make_unique<std::string[]>(capacity);
+                collection = new std::string[capacity];
 
                 // need to reset the position and clear error to read again
                 text_file.clear();
@@ -44,8 +43,9 @@ Text::Text(const std::string& file_name) {
 
 Text& Text::operator=(const Text& other) {
         if (this != &other) {
+                delete [] collection;
                 this->capacity = other.capacity;
-                this->collection = std::make_unique<std::string[]>(capacity);
+                this->collection = new std::string[capacity];
 
                 for (auto i = 0lu;i< capacity; i++) {
                         collection[i] = other.collection[i];
@@ -54,21 +54,30 @@ Text& Text::operator=(const Text& other) {
         return *this;
 }
 
-Text::Text(const Text& other) { *this = other; }
+Text::Text(const Text& other) {
+        this->capacity = other.capacity;
+        this->collection = new std::string[capacity];
+        
+        for (auto i = 0lu;i< capacity; i++) {
+                collection[i] = other.collection[i];
+        }
+}
 
 Text& Text::operator=(Text&& other) noexcept {
         if (this != &other) {
+                delete [] collection;
                 this->capacity = other.capacity;
-                this->collection = std::move(other.collection);
+                this->collection = other.collection;
                 other.capacity = 0;
+                other.collection = nullptr;
         }
         return *this;
 }
 
 Text::Text(Text&& other) {
-        
         this->capacity = other.capacity;
-        this->collection = std::move(other.collection);
+        this->collection = other.collection;
         other.capacity = 0;
+        other.collection = nullptr;
 
 }
