@@ -66,9 +66,9 @@ Text::Text(const Text& other) {
 Text& Text::operator=(Text&& other) noexcept {
         if (this != &other) {
                 delete [] collection;
-                this->capacity = other.capacity;
-                this->collection = other.collection;
-                other.capacity = 0;
+                capacity = other.capacity;
+                collection = other.collection;
+                other.capacity = 0u;
                 other.collection = nullptr;
         }
         return *this;
