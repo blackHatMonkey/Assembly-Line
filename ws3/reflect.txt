@@ -1,0 +1,14 @@
+Name: Brian Smith
+Seneca Student ID: 137105177
+Seneca email: bsmith55@myseneca.ca
+Date of completion: 15/09/2018
+
+I confirm that the content of this file is created by me,
+with the exception of the parts provided to me by my professor.
+
+I learned how to design and implement some basic templates which take
+different number of arguments. Another thing that I got to practice was
+overloading the array index operator to return the value.
+
+What I wanted was to work on a more chanllenging problem which could have
+been sovled using templates.
