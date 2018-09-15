@@ -13,8 +13,8 @@
 
 #include "Text.h"
 
-using namespace std::string_literals;
 using namespace w2;
+
 /*
  * Construct the object using a file name.
  *
@@ -26,7 +26,7 @@ Text::Text(const std::string& file_name) {
         std::ifstream text_file(file_name);
 
         if (text_file.is_open()) {
-                auto line{""s};
+                auto line = std::string();
 
                 // count the lines first to reduce allocation time
                 while (std::getline(text_file, line)) {
