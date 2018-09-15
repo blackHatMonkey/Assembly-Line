@@ -1,0 +1,16 @@
+Name: Brian Smith
+Seneca Student ID: 137105177
+Seneca email: bsmith55@myseneca.ca
+Date of completion: 11/09/2018
+
+I confirm that the content of this file is created by me,
+with the exception of the parts provided to me by my professor.
+
+This workshop was a good review on how to implement the copy assignment
+operator and the copy constructor for a class.
+
+I also learned how to implement the move constructor and assignment
+operator for a class. These member functions are really good for
+increasing performance without chaning any implementation details.
+Finally I learned about how to process text files and read them increasing
+to a string.
