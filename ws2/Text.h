@@ -9,7 +9,6 @@
 #ifndef W2_TEXT_H
 #define W2_TEXT_H
 
-#include <memory>
 #include <string>
 
 namespace w2 {
@@ -21,7 +20,7 @@ class Text {
         Text& operator=(const Text& other);
         Text(Text&& other);
         Text& operator=(Text&& other) noexcept;
-        ~Text(){delete [] collection;};
+        ~Text() { delete[] collection; };
         size_t size() const { return capacity > 0 ? capacity + 1 : 0; };
 
        private:

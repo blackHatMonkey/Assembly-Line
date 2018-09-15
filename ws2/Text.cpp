@@ -8,15 +8,19 @@
 
 #include <fstream>
 #include <iostream>
-#include <memory>
 #include <sstream>
 #include <string>
-#include <utility>
 
 #include "Text.h"
 
 using namespace std::string_literals;
 using namespace w2;
+/*
+ * Construct the object using a file name.
+ *
+ * @param file_name a string reference with the name of the file.
+ *
+ */
 
 Text::Text(const std::string& file_name) {
         std::ifstream text_file(file_name);
@@ -41,43 +45,66 @@ Text::Text(const std::string& file_name) {
         }
 }
 
+/*
+ * Copy the other object in to the current object.
+ *
+ * @param other another Text object.
+ * @return a reference to the current object.
+ *
+ */
 Text& Text::operator=(const Text& other) {
         if (this != &other) {
-                delete [] collection;
+                delete[] collection;
                 this->capacity = other.capacity;
                 this->collection = new std::string[capacity];
 
-                for (auto i = 0lu;i< capacity; i++) {
+                for (auto i = 0lu; i < capacity; i++) {
                         collection[i] = other.collection[i];
                 }
         }
         return *this;
 }
 
+/*
+ * Copy the other object in to the current object.
+ *
+ * @param other another Text object.
+ *
+ */
 Text::Text(const Text& other) {
         this->capacity = other.capacity;
         this->collection = new std::string[capacity];
-        
-        for (auto i = 0lu;i< capacity; i++) {
+
+        for (auto i = 0lu; i < capacity; i++) {
                 collection[i] = other.collection[i];
         }
 }
 
+/*
+ * Move the other object into the current object.
+ *
+ * @param other an rvalue of Text object.
+ * @return reference to the current object.
+ *
+ */
 Text& Text::operator=(Text&& other) noexcept {
         if (this != &other) {
-                delete [] collection;
+                delete[] collection;
                 capacity = other.capacity;
                 collection = other.collection;
-                other.capacity = 0u;
                 other.collection = nullptr;
         }
         return *this;
 }
 
+/*
+ * Move the other object into the current object.
+ *
+ * @param other an rvalue of Text object.
+ *
+ */
 Text::Text(Text&& other) {
         this->capacity = other.capacity;
         this->collection = other.collection;
-        other.capacity = 0;
         other.collection = nullptr;
-
 }
