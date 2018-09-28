@@ -10,23 +10,35 @@
 #define LIST_H
 
 #include <cstddef>
+#include <stdexcept>
 
 template <typename T, size_t N>
 class List {
        public:
         List() = default;
         size_t size() const { return capacity; }
-        const T& operator[](int index) const { return collection[index]; }
-        void operator+=(const T& element) {
-                if (capacity < N - 1) {
-                        collection[capacity] = element;
-                        capacity++;
-                }
-        }
+        const T& operator[](int index) const;
+        void operator+=(const T& element);
 
        private:
-        T collection[N]{};
+        T collection[N];
         size_t capacity{0};
 };
 
+template <typename T, size_t N>
+void List<T, N>::operator+=(const T& element) {
+        if (capacity < N - 1) {
+                collection[capacity] = element;
+                capacity++;
+        }
+}
+
+template <typename T, size_t N>
+const T& List<T, N>::operator[](int index) const {
+        if (index < 0 || index > capacity) {
+                throw std::out_of_range("Index is out of range");
+        } else {
+                return collection[index];
+        }
+}
 #endif
