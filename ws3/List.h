@@ -35,7 +35,7 @@ void List<T, N>::operator+=(const T& element) {
 
 template <typename T, size_t N>
 const T& List<T, N>::operator[](int index) const {
-        if (index < 0 || index > capacity) {
+        if (index < 0 || static_cast<size_t>(index) > capacity) {
                 throw std::out_of_range("Index is out of range");
         } else {
                 return collection[index];
