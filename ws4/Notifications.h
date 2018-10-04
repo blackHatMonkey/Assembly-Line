@@ -26,7 +26,7 @@ class Notifications {
         ~Notifications();
 
        private:
-        std::array<Message*, 10> messages{nullptr};
+        std::array<Message*, 10> messages{};
         size_t fillIndex = 0;
 };
 }  // namespace w4

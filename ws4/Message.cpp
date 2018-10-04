@@ -42,11 +42,11 @@ Message::Message(std::ifstream& in, char c) {
  * @param out an output object.
  */
 auto Message::display(std::ostream& out) const -> void {
-        out << "Message:" << std::endl;
+        out << "Message" << std::endl;
         out << " User  : " << sender << std::endl;
 
         if (!replayTo.empty()) {
-                out << " Replay: " << replayTo << std::endl;
+                out << " Reply : " << replayTo << std::endl;
         }
 
         out << " Tweet : " << message << std::endl;
@@ -54,6 +54,12 @@ auto Message::display(std::ostream& out) const -> void {
 
 /**
  * @brief Parse the contents of the message.
+ *
+ * The input comes in three different formats:
+ *      1. sender @receiver message
+ *      2. sender message
+ *      3. sender
+ * Case 1 and 2 are valid while case 3 is invalid and should be discarded.
  *
  * @param fullLine a string content to parse.
  * @param sender sender of the message.
@@ -70,7 +76,7 @@ auto parseMessage(string& fullLine, string& sender, string& receiver,
 
                 if (fullLine[0] == '@') {
                         spaceIndex = fullLine.find(' ');
-                        receiver = fullLine.substr(1, spaceIndex);
+                        receiver = fullLine.substr(1, spaceIndex - 1);
                         fullLine.erase(0, spaceIndex + 1);
                 }
 
