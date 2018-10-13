@@ -1,0 +1,11 @@
+Name: Brian Smith
+Seneca Student ID: 137105177
+Seneca email: bsmith55@myseneca.ca
+Date of completion: 07/10/2018
+I confirm that the content of this file is created by me,
+with the exception of the parts provided to me by my professor.
+
+I learned about how lambda expressions work and how to pass them to functions
+as a parameter. Another thing I learned was how to forbid a class from
+copying one of it's kind. I also got more practice with enums and how
+to incorporate them to a project. 
