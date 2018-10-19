@@ -10,13 +10,5 @@ class iProduct {
     virtual void display(std::ostream&) const = 0;
 };
 
-class Product : public iProduct {
-   private:
-    int productNum = 0;
-    double productCost = 0.0;
-};
-
-class TaxableProduct : public Product {};
-
 }  // namespace w6
 #endif

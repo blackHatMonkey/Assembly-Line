@@ -38,6 +38,24 @@ int main(int argc, char** argv) {
         // - Print a message before starting processing a product.
         // - Add the product to the vector "products", created above.
         // - Handle any thrown exceptions and print the message.
+        std::ifstream file(argv[1]);
+
+        for (auto i = 0;; i++) {
+            std::cout << "Processing record " << i << ": " << std::endl;
+            try {
+                auto res = w6::readProduct(file);
+                if (res == nullptr) {
+                    std::cout << "no such record! Reached the end of the file!";
+                    break;
+                } else {
+                    std::cout << "done!";
+                    products.push_back(res);
+                }
+            } catch (std::string error) {
+                std::cout << error;
+            }
+            std::cout << std::endl;
+        }
     }
     std::cout << "====================================\n";
 
@@ -51,7 +69,7 @@ int main(int argc, char** argv) {
     std::cout << "------------------------------------\n";
     for (auto i = 0u; i < products.size(); i++) {
         total += products[i]->getPrice();
-        // std::cout << *products[i];
+        std::cout << *products[i];
     }
     std::cout << "------------------------------------\n";
     std::cout << std::setw(22) << "Total: ";
