@@ -45,7 +45,8 @@ int main(int argc, char** argv) {
             try {
                 auto res = w6::readProduct(file);
                 if (res == nullptr) {
-                    std::cout << "no such record! Reached the end of the file!";
+                    std::cout << "no such record! Reached the end of the file!"
+                              << std::endl;
                     break;
                 } else {
                     std::cout << "done!";
