@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
     std::cout << "====================================\n";
 
     double total = 0.0;
-    std::cout << " Product No Taxable\n";
+    std::cout << "      Product No         Taxable\n";
     std::cout << "------------------------------------\n";
     for (auto i = 0u; i < products.size(); i++) {
         total += products[i]->getPrice();

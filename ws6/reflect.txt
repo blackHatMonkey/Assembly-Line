@@ -1,0 +1,13 @@
+Name: Brian Smith
+Seneca Student ID: 137105177
+Seneca email: bsmith55@myseneca.ca
+Date of completion: 18/10/2018
+
+I confirm that the content of this file is created by me,
+with the exception of the parts provided to me by my professor.
+
+In this workshop I learned how to properly implement pure virtual
+functions from an abstract class hierarchy. I also practiced more
+with a static class array which will get allocated only once. I got
+more practice with handling exceptions and specifically sending
+std::string error message.

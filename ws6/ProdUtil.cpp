@@ -1,3 +1,11 @@
+// Name: Brian Smith
+// Seneca Student ID: 137105177
+// Seneca email: bsmith55@myseneca.ca
+// Date of completion: 18/10/2018
+//
+// I confirm that the content of this file is created by me,
+// with the exception of the parts provided to me by my professor.
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -7,12 +15,12 @@
 #include "TaxableProduct.h"
 #include "iProduct.h"
 
-// TODO remove this
-using std::cout;
-using std::endl;
-
 namespace w6 {
 
+/**
+ * Display the contents of a product along with a new line.
+ *
+ */
 auto operator<<(std::ostream& out, const iProduct& product) -> std::ostream& {
     product.display(out);
     out << std::endl;
@@ -20,6 +28,14 @@ auto operator<<(std::ostream& out, const iProduct& product) -> std::ostream& {
     return out;
 }
 
+/**
+ * Return a iProduct after reading an entry from file. If the file is not
+ * open or it has reached end of file it will return nullptr.
+ *
+ * Also in case of an invalid tax type throws std::string with an error
+ * message.
+ *
+ */
 auto readProduct(std::ifstream& file) -> iProduct* {
     if (file.is_open()) {
         auto productNum{0};
