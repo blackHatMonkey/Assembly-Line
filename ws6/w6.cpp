@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
         std::ifstream file(argv[1]);
 
         for (auto i = 0;; i++) {
-            std::cout << "Processing record " << i << ": " << std::endl;
+            std::cout << "Processing record " << i + 1 << ": ";
             try {
                 auto res = w6::readProduct(file);
                 if (res == nullptr) {
