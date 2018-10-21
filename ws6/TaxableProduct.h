@@ -24,7 +24,7 @@ class TaxableProduct : public Product {
     static double taxRates[2];
 
     TaxableProduct(int number, double price, bool isItHst)
-        : Product(number, price), isHst{isItHst} {}
+        : Product(number, price), isHst(isItHst) {}
 
     /**
      * Return the product price.

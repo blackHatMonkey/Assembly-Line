@@ -21,7 +21,7 @@ namespace w6 {
 class Product : public iProduct {
    public:
     Product(int number, double price)
-        : productNum{number}, productCost{price} {}
+        : productNum(number), productCost(price) {}
 
     /**
      * Return the price of product.

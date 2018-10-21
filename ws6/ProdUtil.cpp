@@ -38,9 +38,9 @@ auto operator<<(std::ostream& out, const iProduct& product) -> std::ostream& {
  */
 auto readProduct(std::ifstream& file) -> iProduct* {
     if (file.is_open()) {
-        auto productNum{0};
-        auto productPrice{0.0};
-        char taxType{0};
+        auto productNum = 0;
+        auto productPrice = 0.0;
+        char taxType = 0;
         std::string line;
 
         std::getline(file, line);
