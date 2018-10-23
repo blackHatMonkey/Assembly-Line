@@ -155,6 +155,7 @@ auto DataTable<T>::regression(T& slope, T& y_intercept) const -> void {
  */
 template <typename T>
 auto DataTable<T>::display(std::ostream& out) const -> void {
+    out << std::setw(width) << "x" << std::setw(width) << "y" << std::endl;
     for (auto i : data) {
         out << std::fixed << std::setw(width) << std::setprecision(precision)
             << i.first << std::setw(width) << i.second << std::endl;
