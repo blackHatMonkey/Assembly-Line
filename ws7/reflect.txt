@@ -1,0 +1,13 @@
+Name: Brian Smith
+Seneca Student ID: 137105177
+Seneca email: bsmith55@myseneca.ca
+Date of completion: 23/10/2018
+
+I confirm that the content of this file is created by me,
+with the exception of the parts provided to me by my professor.
+
+I learned how to work with template functions from numeric to
+calculate common mathematical operations. I also learned how
+to pass in a lambda function to customize it even further.
+These general algorithms are useful in certain situations and
+save you from writing and maintaining the code.
