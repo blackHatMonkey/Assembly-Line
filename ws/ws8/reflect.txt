@@ -1,0 +1,4 @@
+In this workshop I learned how smart pointers can save
+you from writing try catch blocks everywhere in your code.
+The deallocate the resource if an error happens and you
+don't have to worry about cleaning up.
