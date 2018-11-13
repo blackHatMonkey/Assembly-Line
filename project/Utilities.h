@@ -13,7 +13,7 @@ class Utilities {
   auto getDelimiter() const -> const char;
 
  private:
-  size_t m_widthField = 0;
+  size_t m_widthField = 1;
   static char m_delimiter;
 };
 
