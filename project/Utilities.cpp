@@ -69,9 +69,10 @@ auto Utilities::extractToken(const std::string &str, size_t &next_pos,
   }
 
   // we need to keep track of the largest feild width for printing
+  // only for the first token
   auto tokenSize = token.size();
-  if (tokenSize > m_widthField) {
-    m_widthField = tokenSize;
+  if (next_pos == 0 && tokenSize > m_widthField) {
+    m_widthField = tokenSize + 1;
   }
 
   // account for delimeter in position for the next call
