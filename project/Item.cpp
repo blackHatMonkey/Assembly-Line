@@ -30,6 +30,7 @@ Item::Item(const std::string &line) {
     m_serialNumber = std::stoi(util.extractToken(line, pos, more));
   } else {
     std::cerr << "Failed to get second token!" << std::endl;
+    more = false;
   }
 
   if (more) {
@@ -37,6 +38,7 @@ Item::Item(const std::string &line) {
     m_quantity = std::stoi(util.extractToken(line, pos, more));
   } else {
     std::cerr << "Failed to get third token!" << std::endl;
+    more = false;
   }
 
   if (more) {
