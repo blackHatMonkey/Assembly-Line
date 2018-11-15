@@ -63,7 +63,7 @@ auto Item::getName() const -> const std::string & { return m_name; }
  *
  * @return const size_t Serial number of the product.
  */
-auto Item::getSerialNumber() -> const size_t { return m_serialNumber; }
+auto Item::getSerialNumber() -> const size_t { return m_serialNumber++; }
 
 /**
  * @brief Return the remaining quantity of the product.
