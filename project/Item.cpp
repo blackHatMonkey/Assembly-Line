@@ -25,6 +25,9 @@ Item::Item(const std::string &line) {
 
   m_name = util.extractToken(line, pos, more);
 
+  // we need it for display to work properly
+  m_widthField = util.getFieldWidth();
+
   if (more) {
     // need to convert it to an int to match serial's type
     m_serialNumber = std::stoi(util.extractToken(line, pos, more));
@@ -46,9 +49,6 @@ Item::Item(const std::string &line) {
   } else {
     std::cerr << "Failed to get fourth token!" << std::endl;
   }
-
-  // we need it for display to work properly
-  m_widthField = util.getFieldWidth();
 }
 
 /**
@@ -100,16 +100,13 @@ auto Item::updateQuantity() -> void {
 auto Item::display(std::ostream &os, bool full) const -> void {
   auto serialWidth = 6;
 
+  os << std::left << std::setw(m_widthField) << m_name << " ["
+     << std::setw(serialWidth) << std::right << std::setfill('0')
+     << m_serialNumber << ']' << std::setfill(' ');
+
   if (full) {
-    os << std::left << std::setw(m_widthField) << m_name << '['
-       << std::setw(serialWidth) << std::setfill('0') << std::right
-       << m_serialNumber << std::left << std::setfill(' ')
-       << "] Quantity: " << std::setw(m_widthField) << m_quantity
+    os << "] Quantity: " << std::left << std::setw(m_widthField) << m_quantity
        << "Description: " << m_description;
-  } else {
-    os << std::left << std::setw(m_widthField) << m_name << '['
-       << std::setw(serialWidth) << std::right << std::setfill('0')
-       << m_serialNumber << ']' << std::setfill(' ');
   }
 
   os << std::endl;
