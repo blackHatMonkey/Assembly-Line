@@ -105,7 +105,7 @@ auto Item::display(std::ostream &os, bool full) const -> void {
      << m_serialNumber << ']' << std::setfill(' ');
 
   if (full) {
-    os << "] Quantity: " << std::left << std::setw(m_widthField) << m_quantity
+    os << " Quantity: " << std::left << std::setw(m_widthField) << m_quantity
        << "Description: " << m_description;
   }
 
