@@ -106,7 +106,7 @@ auto Item::display(std::ostream &os, bool full) const -> void {
 
   if (full) {
     os << " Quantity: " << std::left << std::setw(m_widthField) << m_quantity
-       << "Description: " << m_description;
+       << " Description: " << m_description;
   }
 
   os << std::endl;
