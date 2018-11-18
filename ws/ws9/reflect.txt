@@ -1,0 +1,5 @@
+In this workshop I learned to work with multiple threads. Using threads
+you can divide the work and make it faster. Another thing I got to 
+practice was working with binary files. I learned how to read and write
+to them. Also I learned how to bind a function to it's argument using
+std::bind function.
