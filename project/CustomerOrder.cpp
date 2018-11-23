@@ -137,3 +137,7 @@ auto CustomerOrder::display(std::ostream &out) const -> void {
     out << std::endl;
   }
 }
+
+CustomerOrder::CustomerOrder(const CustomerOrder &) {
+  throw std::string("This class should not be copied!");
+}

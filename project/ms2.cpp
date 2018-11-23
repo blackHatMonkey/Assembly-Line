@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 
-
 using namespace std;
 
 template <typename T> static void loadFromFile(const char *, vector<T> &);
@@ -76,7 +75,7 @@ int main(int argc, char **argv) {
     try {
       // copy constructor
       cout << "CustomerOrders::CustomerOrders(&): "; // Test #2
-      // CustomerOrder anOrder(theOrders[0]);
+      CustomerOrder anOrder(theOrders[0]);
     } catch (...) {
       cout << "----> ERROR: Cannot make copies.";
       cout << endl << endl;
