@@ -32,7 +32,7 @@ public:
   CustomerOrder(CustomerOrder &&) noexcept;
   CustomerOrder &operator=(CustomerOrder &&);
   ~CustomerOrder();
-  auto getItemFillState(std::string) const -> bool;
+  auto getItemFillState(std::string) const noexcept -> bool;
   auto getOrderFillState() const -> bool;
   auto fillItem(Item &item, std::ostream &) -> void;
   auto display(std::ostream &) const -> void;

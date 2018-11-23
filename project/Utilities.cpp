@@ -60,16 +60,6 @@ auto Utilities::getDelimiter() const -> const char { return m_delimiter; }
 auto Utilities::extractToken(const std::string &str, size_t &next_pos,
                              bool &more) -> const std::string {
   auto nextDelimPos = str.find(m_delimiter, next_pos);
-
-  if (nextDelimPos == std::string::npos) {
-    more = false;
-    auto finalToken = str.substr(next_pos);
-    if (finalToken[finalToken.size() - 1] == '\r') {
-      finalToken.pop_back();
-    }
-    return finalToken;
-  }
-
   auto token = str.substr(next_pos, nextDelimPos - next_pos);
 
   // throw an error if there is no data between two delimeters
@@ -78,8 +68,16 @@ auto Utilities::extractToken(const std::string &str, size_t &next_pos,
     throw std::string("No data was found!");
   }
 
+  // we have reached end of the line so no more tokens
+  if (nextDelimPos == std::string::npos) {
+    more = false;
+
+    if (token[token.size() - 1] == '\r') {
+      token.pop_back();
+    }
+  }
+
   // we need to keep track of the largest feild width for printing
-  // only for the first token
   auto tokenSize = token.size();
   if (tokenSize > m_widthField) {
     m_widthField = tokenSize;
@@ -87,11 +85,6 @@ auto Utilities::extractToken(const std::string &str, size_t &next_pos,
 
   // account for delimeter in position for the next call
   next_pos = nextDelimPos + 1;
-
-  // we have reached end of the line so no more tokens
-  if (tokenSize == 0) {
-    more = false;
-  }
 
   return token;
 }

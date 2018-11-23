@@ -31,12 +31,14 @@ CustomerOrder::CustomerOrder(std::string &line) {
 
   std::vector<std::string> items;
 
-  // TODO finish this
   while (more) {
     items.push_back(util.extractToken(line, pos, more));
   }
 
-  m_widthField = util.getFieldWidth();
+  auto width = util.getFieldWidth();
+  if (width > m_widthField) {
+    m_widthField = width;
+  }
 
   m_cntItem = items.size();
   m_lstItem = new ItemInfo *[m_cntItem];
@@ -82,7 +84,8 @@ CustomerOrder::~CustomerOrder() {
   delete[] m_lstItem;
 }
 
-auto CustomerOrder::getItemFillState(std::string itemName) const -> bool {
+auto CustomerOrder::getItemFillState(std::string itemName) const noexcept
+    -> bool {
   for (auto i = 0u; i < m_cntItem; i++) {
     if (m_lstItem[i]->m_itemName == itemName) {
       return m_lstItem[i]->m_fillState;
