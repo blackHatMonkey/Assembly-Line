@@ -23,10 +23,10 @@ CustomerOrder::CustomerOrder(std::string &line) {
   auto more = true;
   auto pos = (size_t)0;
 
-  auto customerName = util.extractToken(line, pos, more);
+  m_name = util.extractToken(line, pos, more);
 
   if (more) {
-    auto orderName = util.extractToken(line, pos, more);
+    m_product = util.extractToken(line, pos, more);
   }
 
   std::vector<std::string> items;
@@ -35,6 +35,8 @@ CustomerOrder::CustomerOrder(std::string &line) {
   while (more) {
     items.push_back(util.extractToken(line, pos, more));
   }
+
+  m_widthField = util.getFieldWidth();
 
   m_cntItem = items.size();
   m_lstItem = new ItemInfo *[m_cntItem];
@@ -46,6 +48,11 @@ CustomerOrder::CustomerOrder(std::string &line) {
 
 CustomerOrder::CustomerOrder(CustomerOrder &&other) noexcept {
   m_lstItem = other.m_lstItem;
+  m_cntItem = other.m_cntItem;
+  m_name = other.m_name;
+  m_product = other.m_product;
+
+  other.m_cntItem = 0;
   other.m_lstItem = nullptr;
 }
 
@@ -57,6 +64,11 @@ CustomerOrder &CustomerOrder::operator=(CustomerOrder &&other) {
     delete[] m_lstItem;
 
     m_lstItem = other.m_lstItem;
+    m_cntItem = other.m_cntItem;
+    m_name = other.m_name;
+    m_product = other.m_product;
+
+    other.m_cntItem = 0;
     other.m_lstItem = nullptr;
   }
 
@@ -103,7 +115,7 @@ auto CustomerOrder::fillItem(Item &item, std::ostream &out) -> void {
         out << "Unable to fill ";
       }
       out << m_name << ", " << m_product << "[" << m_lstItem[i]->m_itemName
-          << std::endl;
+          << "]" << std::endl;
     }
   }
 }
@@ -113,8 +125,8 @@ auto CustomerOrder::display(std::ostream &out) const -> void {
 
   for (auto i = 0u; i < m_cntItem; i++) {
     out << "[" << std::setw(6) << std::setfill('0')
-        << m_lstItem[i]->m_serialNumber << "] " << std::setw(m_widthField)
-        << m_lstItem[i]->m_itemName << " - ";
+        << m_lstItem[i]->m_serialNumber << "] " << std::setfill(' ')
+        << std::setw(m_widthField) << m_lstItem[i]->m_itemName << " - ";
 
     if (m_lstItem[i]->m_fillState) {
       out << "FILLED";

@@ -60,6 +60,16 @@ auto Utilities::getDelimiter() const -> const char { return m_delimiter; }
 auto Utilities::extractToken(const std::string &str, size_t &next_pos,
                              bool &more) -> const std::string {
   auto nextDelimPos = str.find(m_delimiter, next_pos);
+
+  if (nextDelimPos == std::string::npos) {
+    more = false;
+    auto finalToken = str.substr(next_pos);
+    if (finalToken[finalToken.size() - 1] == '\r') {
+      finalToken.pop_back();
+    }
+    return finalToken;
+  }
+
   auto token = str.substr(next_pos, nextDelimPos - next_pos);
 
   // throw an error if there is no data between two delimeters
