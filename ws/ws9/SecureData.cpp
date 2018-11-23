@@ -70,10 +70,12 @@ void SecureData::display(std::ostream &os) const {
 
 void SecureData::code(char key) {
   auto cry = Cryptor();
-  thread t1(bind(converter, text, key, nbytes / 4, cry));
-  thread t2(bind(converter, text + (nbytes / 4), key, nbytes / 4, cry));
-  thread t3(bind(converter, text + (nbytes / 2), key, nbytes / 4, cry));
-  thread t4(bind(converter, text + (3 * nbytes / 4), key, nbytes / 4, cry));
+  auto functionBind = std::bind(converter, std::placeholders::_1, key,
+                                std::placeholders::_2, cry);
+  thread t1(functionBind, text, nbytes / 4);
+  thread t2(functionBind, text + (nbytes / 4), nbytes / 4);
+  thread t3(functionBind, text + (nbytes / 2), nbytes / 4);
+  thread t4(functionBind, text + (3 * nbytes / 4), nbytes / 4);
 
   t1.join();
   t2.join();
