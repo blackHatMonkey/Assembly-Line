@@ -107,7 +107,8 @@ auto CustomerOrder::getOrderFillState() const -> bool {
 
 auto CustomerOrder::fillItem(Item &item, std::ostream &out) -> void {
   for (auto i = 0u; i < m_cntItem; i++) {
-    if (item.getName() == m_lstItem[i]->m_itemName) {
+    if (item.getName() == m_lstItem[i]->m_itemName &&
+        !m_lstItem[i]->m_fillState) {
       if (item.getQuantity() > 0) {
         item.updateQuantity();
         m_lstItem[i]->m_fillState = true;
