@@ -1,0 +1,4 @@
+The last milestone was very confusing. The logic was not really complicated
+but the description of the methods were not enough to implement it.
+This could be avoided if there was a paragraph explaining the whole system
+in broad manner.

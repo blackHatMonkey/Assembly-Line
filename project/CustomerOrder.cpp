@@ -18,6 +18,11 @@
 
 size_t CustomerOrder::m_widthField = 1;
 
+/**
+ * @brief Construct a new Customer Order:: Customer Order object
+ *
+ * @param line A line of string contating the order.
+ */
 CustomerOrder::CustomerOrder(std::string &line) {
   Utilities util;
   auto more = true;
@@ -48,6 +53,11 @@ CustomerOrder::CustomerOrder(std::string &line) {
   }
 }
 
+/**
+ * @brief Construct a new Customer Order:: Customer Order object
+ *
+ * @param other
+ */
 CustomerOrder::CustomerOrder(CustomerOrder &&other) noexcept {
   m_lstItem = other.m_lstItem;
   m_cntItem = other.m_cntItem;
@@ -58,6 +68,12 @@ CustomerOrder::CustomerOrder(CustomerOrder &&other) noexcept {
   other.m_lstItem = nullptr;
 }
 
+/**
+ * @brief Move the Customer Order.
+ *
+ * @param other Another Customer Order.
+ * @return CustomerOrder& Reference to current instance.
+ */
 CustomerOrder &CustomerOrder::operator=(CustomerOrder &&other) {
   if (this != &other) {
     for (auto i = 0u; i < m_cntItem; i++) {
@@ -77,6 +93,10 @@ CustomerOrder &CustomerOrder::operator=(CustomerOrder &&other) {
   return *this;
 }
 
+/**
+ * @brief Destroy the Customer Order:: Customer Order object
+ *
+ */
 CustomerOrder::~CustomerOrder() {
   for (auto i = 0u; i < m_cntItem; i++) {
     delete m_lstItem[i];
@@ -84,6 +104,13 @@ CustomerOrder::~CustomerOrder() {
   delete[] m_lstItem;
 }
 
+/**
+ * @brief Check if item is filled or not.
+ *
+ * @param itemName Name of an item.
+ * @return true In case the item is filled.
+ * @return false In case the items is not filled.
+ */
 auto CustomerOrder::getItemFillState(std::string itemName) const noexcept
     -> bool {
   for (auto i = 0u; i < m_cntItem; i++) {
@@ -91,25 +118,35 @@ auto CustomerOrder::getItemFillState(std::string itemName) const noexcept
       return m_lstItem[i]->m_fillState;
     }
   }
-
   return true;
 }
 
+/**
+ * @brief Check if order is filled or not.
+ *
+ * @return true In case the order is filled.
+ * @return false In case the order is not filled.
+ */
 auto CustomerOrder::getOrderFillState() const -> bool {
   for (auto i = 0u; i < m_cntItem; i++) {
     if (!m_lstItem[i]->m_fillState) {
       return false;
     }
   }
-
   return true;
 }
 
+/**
+ * @brief Fill the order.
+ *
+ * @param item Item to be used for filling.
+ * @param out An ostream object to output to.
+ */
 auto CustomerOrder::fillItem(Item &item, std::ostream &out) -> void {
   for (auto i = 0u; i < m_cntItem; i++) {
     if (item.getName() == m_lstItem[i]->m_itemName &&
         !m_lstItem[i]->m_fillState) {
-      if (item.getQuantity() > 0) {
+      if (item.getQuantity()) {
         item.updateQuantity();
         m_lstItem[i]->m_fillState = true;
         m_lstItem[i]->m_serialNumber = item.getSerialNumber();
@@ -124,6 +161,11 @@ auto CustomerOrder::fillItem(Item &item, std::ostream &out) -> void {
   }
 }
 
+/**
+ * @brief Display the customer order along with fill status.
+ *
+ * @param out An ostream object to output to.
+ */
 auto CustomerOrder::display(std::ostream &out) const -> void {
   out << m_name << " - " << m_product << std::endl;
 
@@ -142,6 +184,10 @@ auto CustomerOrder::display(std::ostream &out) const -> void {
   }
 }
 
+/**
+ * @brief Construct a new Customer Order:: Customer Order object
+ *
+ */
 CustomerOrder::CustomerOrder(const CustomerOrder &) {
   throw std::string("This class should not be copied!");
 }

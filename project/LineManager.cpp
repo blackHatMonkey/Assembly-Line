@@ -1,4 +1,13 @@
-#include <deque>
+/*
+ * Name: Brian Smith
+ * Seneca Student ID: 137105177
+ * Seneca email: bsmith55@myseneca.ca
+ * Date of completion: 12/22/2018
+ *
+ * I confirm that I am the only author of this file
+ * and the content was created entirely by me.
+ */
+
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -8,6 +17,13 @@
 #include "LineManager.h"
 #include "Utilities.h"
 
+/**
+ * @brief Construct a new Line Manager:: Line Manager object
+ *
+ * @param fileName Name of file to find the assembly line order.
+ * @param tasks A vector of tasks.
+ * @param orders A vector of customer orders.
+ */
 LineManager::LineManager(const std::string &fileName,
                          std::vector<Task *> &tasks,
                          std::vector<CustomerOrder> &orders) {
@@ -53,21 +69,24 @@ LineManager::LineManager(const std::string &fileName,
 }
 
 /**
- * @brief
+ * @brief Run a single cycle of the assembly line.
  *
- * @param out
- * @return true
- * @return false
+ * @param out An ostream object to print output.
+ * @return true In case all the orders are completed.
+ * @return false In case not all all the orders are completed.
  */
 auto LineManager::run(std::ostream &out) -> bool {
-  if (ToBeFilled.size()) {
+  if (!ToBeFilled.empty()) {
     *(AssemblyLine.back()) += std::move(ToBeFilled.back());
     ToBeFilled.pop_back();
   }
+
+  // fill all orders in each task
   for (auto &task : AssemblyLine) {
     task->runProcess(out);
   }
 
+  // take out any of the compeleted orders from the line
   for (auto &task : AssemblyLine) {
     CustomerOrder co;
     if (task->getCompleted(co)) {
@@ -77,15 +96,10 @@ auto LineManager::run(std::ostream &out) -> bool {
         *task += std::move(co);
       }
     }
-
     task->moveTask();
   }
 
-  if (m_cntCustomerOrder == Completed.size()) {
-    return true;
-  } else {
-    return false;
-  }
+  return m_cntCustomerOrder == Completed.size();
 }
 
 /**
@@ -100,11 +114,11 @@ auto LineManager::displayCompleted(std::ostream &out) const -> void {
 }
 
 /**
- * @brief
+ * @brief Validate each task on the assembly line.
  *
  */
 auto LineManager::validateTasks() const -> void {
-  for (auto task : AssemblyLine) {
+  for (const auto &task : AssemblyLine) {
     task->validate(std::cout);
   }
 }
