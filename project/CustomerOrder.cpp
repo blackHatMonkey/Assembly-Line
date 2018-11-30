@@ -171,8 +171,9 @@ auto CustomerOrder::display(std::ostream &out) const -> void {
 
   for (auto i = 0u; i < m_cntItem; i++) {
     out << "[" << std::right << std::setw(6) << std::setfill('0')
-        << m_lstItem[i]->m_serialNumber << "] " << std::setfill(' ')
-        << std::setw(m_widthField) << m_lstItem[i]->m_itemName << " - ";
+        << m_lstItem[i]->m_serialNumber << "] " << std::left
+        << std::setfill(' ') << std::setw(m_widthField)
+        << m_lstItem[i]->m_itemName << " - ";
 
     if (m_lstItem[i]->m_fillState) {
       out << "FILLED";
