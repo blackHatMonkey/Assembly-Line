@@ -33,7 +33,7 @@ auto Task::runProcess(std::ostream &out) -> void {
  * @return false In case the order is not moved.
  */
 auto Task::moveTask() -> bool {
-  if (m_orders.size() && m_orders.back().getItemFillState(getName()) &&
+  if (!m_orders.empty() && m_orders.back().getItemFillState(getName()) &&
       m_pNextTask) {
     m_pNextTask->m_orders.push_front(std::move(m_orders.back()));
     m_orders.pop_back();

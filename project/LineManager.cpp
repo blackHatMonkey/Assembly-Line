@@ -88,15 +88,16 @@ auto LineManager::run(std::ostream &out) -> bool {
 
   // take out any of the compeleted orders from the line
   for (auto &task : AssemblyLine) {
-    CustomerOrder co;
-    if (task->getCompleted(co)) {
-      if (co.getOrderFillState()) {
-        Completed.push_front(std::move(co));
-      } else {
-        *task += std::move(co);
+    if (!task->moveTask()) {
+      CustomerOrder co;
+      if (task->getCompleted(co)) {
+        if (co.getOrderFillState()) {
+          Completed.push_back(std::move(co));
+        } else {
+          *task += std::move(co);
+        }
       }
     }
-    task->moveTask();
   }
 
   return m_cntCustomerOrder == Completed.size();
