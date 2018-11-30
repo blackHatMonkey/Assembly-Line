@@ -28,7 +28,7 @@ public:
   auto moveTask() -> bool;
   auto setNextTask(Task &) -> void;
   auto getCompleted(CustomerOrder &) -> bool;
-  auto validate(std::ostream &) -> void;
+  auto validate(std::ostream &) const -> void;
   auto operator+=(CustomerOrder &&) -> Task &;
 
 private:

@@ -73,7 +73,7 @@ auto Task::getCompleted(CustomerOrder &order) -> bool {
  *
  * @param out An ostream object to send output to.
  */
-auto Task::validate(std::ostream &out) -> void {
+auto Task::validate(std::ostream &out) const -> void {
   out << getName() << " --> ";
 
   if (m_pNextTask) {
