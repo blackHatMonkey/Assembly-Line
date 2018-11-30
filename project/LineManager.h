@@ -32,7 +32,6 @@ private:
   std::deque<CustomerOrder> ToBeFilled;
   std::deque<CustomerOrder> Completed;
   size_t m_cntCustomerOrder;
-  int times = 0;
 };
 
 #endif

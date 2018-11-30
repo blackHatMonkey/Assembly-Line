@@ -11,96 +11,98 @@
 LineManager::LineManager(const std::string &fileName,
                          std::vector<Task *> &tasks,
                          std::vector<CustomerOrder> &orders) {
+
+  // need to convert in order to store in class
   for (auto &order : orders) {
     ToBeFilled.push_front(std::move(order));
   }
 
   m_cntCustomerOrder = ToBeFilled.size();
-
   AssemblyLine = tasks;
 
   Utilities::setDelimiter('|');
-
-  std::ifstream file(fileName);
-  auto more = true;
-  auto pos = (size_t)0;
-
-  std::string section;
-  std::string t1, t2;
-  std::string line;
   Utilities util;
 
-  while (!file.eof()) {
-    more = true;
-    Task *tp1 = nullptr;
-    Task *tp2 = nullptr;
-    t1 = "";
-    t2 = "";
+  for (std::ifstream file(fileName); !file.eof();) {
+    std::string task1, task2, line;
+    auto more = true;
+    auto pos = (size_t)0;
+
     std::getline(file, line);
 
-    t1 = util.extractToken(line, pos, more);
+    task1 = util.extractToken(line, pos, more);
 
+    // capture the second task
     if (more) {
-      t2 = util.extractToken(line, pos, more);
+      task2 = util.extractToken(line, pos, more);
 
+      Task *taskAddress11, *taskAddress2;
+
+      // need to find pointers to link them
       for (auto &task : AssemblyLine) {
-        if (task->getName() == t1) {
-          tp1 = task;
-        } else if (task->getName() == t2) {
-          tp2 = task;
+        if (task->getName() == task1) {
+          taskAddress11 = task;
+        } else if (task->getName() == task2) {
+          taskAddress2 = task;
         }
       }
-      tp1->setNextTask(*tp2);
+      // link the tasks to create the assembly line
+      taskAddress11->setNextTask(*taskAddress2);
     }
   }
 }
 
+/**
+ * @brief
+ *
+ * @param out
+ * @return true
+ * @return false
+ */
 auto LineManager::run(std::ostream &out) -> bool {
   if (ToBeFilled.size()) {
-    // auto temp = std::move(ToBeFilled.back());
-    if (times < 4) {
-      *(AssemblyLine.back()) += std::move(ToBeFilled.back());
-      ToBeFilled.pop_back();
-      times++;
-    }
+    *(AssemblyLine.back()) += std::move(ToBeFilled.back());
+    ToBeFilled.pop_back();
   }
   for (auto &task : AssemblyLine) {
-    // out << "RUNNING:" << task->getName() << std::endl;
     task->runProcess(out);
   }
-  out << "---------------" << std::endl;
 
   for (auto &task : AssemblyLine) {
-    // out << "SECOND LOOP" << std::endl;
     CustomerOrder co;
     if (task->getCompleted(co)) {
       if (co.getOrderFillState()) {
-        // out << "COMPLETED ORDER" << std::endl;
-        // co.display(out);
         Completed.push_front(std::move(co));
       } else {
-        // out << "NOT COMPLETED" << std::endl;
         *task += std::move(co);
       }
-      // continue;
     }
 
     task->moveTask();
   }
 
-  if (4 == Completed.size()) {
+  if (m_cntCustomerOrder == Completed.size()) {
     return true;
   } else {
     return false;
   }
 }
 
+/**
+ * @brief Display completed orders.
+ *
+ * @param out an ostream object to output to.
+ */
 auto LineManager::displayCompleted(std::ostream &out) const -> void {
-  for (auto &order : Completed) {
+  for (const auto &order : Completed) {
     order.display(out);
   }
 }
 
+/**
+ * @brief
+ *
+ */
 auto LineManager::validateTasks() const -> void {
   for (auto task : AssemblyLine) {
     task->validate(std::cout);
