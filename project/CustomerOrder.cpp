@@ -170,7 +170,7 @@ auto CustomerOrder::display(std::ostream &out) const -> void {
   out << m_name << " - " << m_product << std::endl;
 
   for (auto i = 0u; i < m_cntItem; i++) {
-    out << "[" << std::setw(6) << std::setfill('0')
+    out << "[" << std::right << std::setw(6) << std::setfill('0')
         << m_lstItem[i]->m_serialNumber << "] " << std::setfill(' ')
         << std::setw(m_widthField) << m_lstItem[i]->m_itemName << " - ";
 
